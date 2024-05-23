@@ -3,6 +3,16 @@ const checkEmptyFields = async (req, res, next) => {
     next();
     return;
   } 
+  if (
+      !req.body.title ||
+      !req.body.description ||
+      !req.body.image ||
+      !req.body.link ||
+      !req.body.developer
+  ){
+    res.setHeader("Content-Type", "application/json");
+        res.status(400).send(JSON.stringify({ message: "Заполните все поля" }));
+  } 
   else {
       next();
     }
@@ -11,6 +21,10 @@ const checkEmptyFields = async (req, res, next) => {
     if(req.isVoteRequest) {
       next();
       return;
+    }
+    if (!req.body.name) {
+      res.setHeader("Content-Type", "application/json");
+          res.status(400).send(JSON.stringify({ message: "Введите название категории" }));
     } else {
       next();
     }
