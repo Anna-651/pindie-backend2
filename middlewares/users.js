@@ -19,18 +19,30 @@ const createUser = async (req, res, next) => {
         res.status(400).send(JSON.stringify({ message: "Ошибка создания пользователя" }));
   }
 };
+// const hashPassword = async (req, res, next) => {
+//   try{
+//     const salt = await bcrypt.genSalt(10);
+//     const hash = await bcrypt.hash(req.body.password, salt);
+//     red.body.password = hash;
+//     next();
+//   }catch(error){
+//     res.status(400).send({ message: "Ошибка хеширования пароля" });
+//   }
+
+// };
 const hashPassword = async (req, res, next) => {
-  try{
+  try {
+    // Создаём случайную строку длиной в десять символов
     const salt = await bcrypt.genSalt(10);
+    // Хешируем пароль
     const hash = await bcrypt.hash(req.body.password, salt);
-    red.body.password = hash;
+    // Полученный в запросе пароль подменяем на хеш
+    req.body.password = hash;
     next();
-  }catch(error){
+  } catch (error) {
     res.status(400).send({ message: "Ошибка хеширования пароля" });
   }
-
-};
-
+}; 
 
 const findUserById = async (req, res, next) => {
   console.log("GET /users/:id");
