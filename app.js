@@ -10,7 +10,7 @@ const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/apiRouter');
 const connectToDataBase = require("./database/connect");
 connectToDataBase();
-const PORT = 3001;
+const PORT = 3002;
 const app = express();
 app.use (
   cors,
